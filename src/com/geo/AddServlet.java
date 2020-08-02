@@ -2,6 +2,9 @@ package com.geo;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,17 +25,18 @@ public class AddServlet extends HttpServlet
 //		PrintWriter out = res.getWriter();
 //		out.println("result is" + result);
 //	}
-	public void doPost(HttpServletRequest req , HttpServletResponse res) throws IOException {
+	public void doPost(HttpServletRequest req , HttpServletResponse res) throws IOException, ServletException {
 		/*
-		 * doPost akan handle request ONLY POSTs request
+		 * doPost akan handle request ONLY POSTs request 
+		 * doGet akan handle POST Only
 		 * */
 		int num1 = Integer.parseInt(req.getParameter("num1"));
 		int num2 = Integer.parseInt(req.getParameter("num2"));
 		int result = num1 + num2;
+		RequestDispatcher rd = req.getRequestDispatcher("times");
+		req.setAttribute("result", result);
+		rd.forward(req, res);
 		
-		System.out.println("result is "+ result);
-		PrintWriter out = res.getWriter();
-		out.println("result is " + result);
 	}
 	
 	
